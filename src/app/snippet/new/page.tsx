@@ -1,28 +1,14 @@
+"use client"
 import { Button } from "@/src/components/ui/button";
 import { Input } from "@/src/components/ui/input";
 import { Label } from "@/src/components/ui/label";
 import { Textarea } from "@/src/components/ui/textarea";
-import { prisma } from "@/src/lib/prisma";
-
-import { redirect } from "next/navigation";
-import React from "react";
+import React, { useActionState } from "react";
 import { Code2, Sparkles } from "lucide-react";
+import { createsnippet } from "@/src/actions/editAction";
 
 function CreateSnippet() {
-    async function createsnippet(formData: FormData) {
-        "use server"
-        const title = formData.get("title") as string
-        const code = formData.get("code") as string
-        const snippet = await prisma.snippet.create({
-            data: {
-                title,
-                code
-            }
-        })
-        console.log("Create snippet", snippet)
-        redirect("/")
-    }
-
+    const [formStoreData, handle] = useActionState(createsnippet, { message: "" })
     return (
         <section className="max-w-3xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
 
@@ -33,7 +19,7 @@ function CreateSnippet() {
                 <p className="text-zinc-400 text-sm mt-1">Save a reusable code snippet to your portal hub.</p>
             </div>
 
-            <form className="space-y-6" action={createsnippet}>
+            <form className="space-y-6" action={handle}>
 
                 <div className="flex flex-col space-y-2">
 
@@ -64,8 +50,8 @@ function CreateSnippet() {
                 </div>
 
 
-                <div className="pt-2">
-
+                <div className="pt-2 space-y-5">
+                    {formStoreData.message && <div className="text-red-500 text-xl font-semibold">{formStoreData.message}</div>}
                     <Button
                         type="submit"
                         className="w-full sm:w-auto px-6 py-2.5 text-sm font-semibold bg-zinc-100 hover:bg-zinc-200 text-zinc-900 rounded-xl flex items-center justify-center gap-2 transition-all shadow-sm"
