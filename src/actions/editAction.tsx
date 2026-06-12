@@ -23,24 +23,26 @@ export const DeleteSnippetAction = async (id: number) => {
     redirect("/")
 }
 
-
 export async function createsnippet(
-    prevState: { message: string },
+    prevState: {
+        message: string;
+        success: boolean;
+    },
     formData: FormData
 ) {
-    "use server";
-
     const title = formData.get("title");
     const code = formData.get("code");
 
     if (typeof title !== "string" || title.trim().length < 4) {
         return {
+            success: false,
             message: "Title must be at least 4 characters long.",
         };
     }
 
     if (typeof code !== "string" || code.trim().length < 8) {
         return {
+            success: false,
             message: "Code must be at least 8 characters long.",
         };
     }
@@ -52,5 +54,9 @@ export async function createsnippet(
         },
     });
 
-    redirect("/");
+    return {
+        success: true,
+        message: "Snippet created successfully 🎉",
+    };
+    redirect("/")
 }

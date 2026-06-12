@@ -5,10 +5,10 @@ import { Button } from "@/src/components/ui/button";
 import Link from "next/link";
 function Error() {
     return (
-        <div>
+        <div className="flex items-center justify-center h-screen">
             <div className="space-y-2">
                 <h1 className="text-4xl font-bold tracking-tight">
-                    <TriangleAlert />  Something went wrong
+                    <TriangleAlert className="text-red-500 size-10" />  Something went wrong
                 </h1>
 
                 <p className="text-muted-foreground">
