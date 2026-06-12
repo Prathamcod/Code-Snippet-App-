@@ -985,6 +985,7 @@ export type SnippetCreateManyArgs<ExtArgs extends runtime.Types.Extensions.Inter
    * The data used to create many Snippets.
    */
   data: Prisma.SnippetCreateManyInput | Prisma.SnippetCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**
@@ -1003,6 +1004,7 @@ export type SnippetCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensi
    * The data used to create many Snippets.
    */
   data: Prisma.SnippetCreateManyInput | Prisma.SnippetCreateManyInput[]
+  skipDuplicates?: boolean
 }
 
 /**
